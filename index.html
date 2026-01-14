@@ -1,0 +1,135 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Générateur de Rapport Trimestriel - Beraca</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        @media print {
+            .no-print { display: none !important; visibility: hidden !important; height: 0 !important; margin: 0 !important; padding: 0 !important; }
+            body { 
+                background: white !important; 
+                margin: 0 !important; 
+                padding: 0 !important; 
+                width: 210mm; 
+                -webkit-print-color-adjust: exact !important; 
+                print-color-adjust: exact !important;
+                line-height: 1.2 !important;
+            }
+            .page-break { 
+                page-break-after: always; 
+                break-after: page;
+                display: block !important;
+                page-break-inside: avoid !important;
+            }
+            .a4-container { 
+                box-shadow: none !important; 
+                margin: 0 !important;
+                margin-bottom: 0 !important;
+                padding: 15mm 15mm !important;
+                width: 210mm !important; 
+                min-height: 297mm !important;
+                max-height: 297mm !important;
+                height: 297mm !important;
+                border: none !important;
+                page-break-inside: avoid !important;
+                page-break-after: always !important;
+                position: relative;
+                background: white !important;
+                overflow: hidden !important;
+            }
+            /* Réduire les espaces et marges */
+            * { 
+                margin-top: 0 !important;
+                margin-bottom: 0 !important;
+                padding-top: 0.2mm !important;
+                padding-bottom: 0.2mm !important;
+                orphans: 2 !important;
+                widows: 2 !important;
+            }
+            h1, h2, h3, h4, h5, h6 {
+                page-break-after: avoid !important;
+                page-break-inside: avoid !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            p, span, div, input, textarea {
+                page-break-inside: avoid !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            /* Autorise les couleurs au lieu de forcer le noir */
+            input, textarea { 
+                border: none !important; 
+                outline: none !important; 
+                background: transparent !important; 
+                resize: none !important; 
+                -webkit-appearance: none !important;
+                overflow: hidden !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            table {
+                page-break-inside: avoid !important;
+                width: 100% !important;
+            }
+            tr { 
+                page-break-inside: avoid !important;
+            }
+            thead { 
+                display: table-header-group !important;
+            }
+            tbody { 
+                page-break-inside: avoid !important;
+            }
+            /* Réduire les espaces vides entre conteneurs */
+            .flex-1 {
+                flex-grow: 0 !important;
+                min-height: 0 !important;
+            }
+            section {
+                page-break-inside: avoid !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+        }
+        
+        .report-typography {
+            font-family: 'Cambria', 'Georgia', 'Times New Roman', serif;
+            font-size: 12pt !important;
+            line-height: 1.3;
+        }
+
+        .a4-container {
+            width: 210mm;
+            height: 297mm;
+            padding: 15mm 15mm;
+            margin: 10px auto;
+            background: white;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            position: relative;
+            transition: all 0.3s ease;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+        td, th { word-wrap: break-word; overflow-wrap: break-word; vertical-align: top; border: 1px solid #2d415d; padding: 6px; }
+
+        .dot-pattern { background-image: radial-gradient(#cbd5e1 1px, transparent 1px); background-size: 15px 15px; }
+        .line-pattern { background-image: linear-gradient(0deg, #f1f5f9 1px, transparent 1px); background-size: 100% 25px; }
+        
+        /* Animation pour l'édition */
+        .animate-fade-in { animation: fadeIn 0.5s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body class="bg-slate-50 font-sans text-slate-900">
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+</body>
+</html>
