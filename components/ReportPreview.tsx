@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Flower2, Leaf, Award, Sun, Zap, Layers, Star, Frame, Grid3X3, BookOpen, Heart, CheckCircle2 } from 'lucide-react';
 import { ReportData, PTAActivity } from '../types';
+import logoUrl from '../logo.jpeg';
 
-// Composant de texte éditable qui se comporte comme un vrai élément HTML (div)
+// Composant de texte éditable...
 // Cela garantit un rendu parfait pour le PDF (pas de texte coupé, retours à la ligne naturels)
 const EditableBlock = ({ 
   value, 
@@ -64,7 +65,7 @@ interface ReportPreviewProps {
 
 export const ADLogo = ({ className = "w-full h-full" }: { className?: string }) => (
   <img
-    src="/logo.jpeg"
+    src={logoUrl}
     alt="Logo Assemblées de Dieu"
     className={`${className} object-contain`}
   />
