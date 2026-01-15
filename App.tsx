@@ -146,12 +146,23 @@ const App: React.FC = () => {
       const reader = new FileReader();
       reader.onload = (re: ProgressEvent<FileReader>) => {
         try {
-          const content = JSON.parse(re.target?.result as string);
-          setData(content);
-          setView('edition');
-          alert("Données importées avec succès !");
+          if (re.target?.result) {
+            const content = JSON.parse(re.target.result as string);
+            // Basic validation to ensure it's likely a report file
+            if (content && typeof content === 'object') {
+               setData(prev => ({ ...INITIAL_DATA, ...content })); // Merge with initial data to ensure all fields exist
+               setView('edition');
+               alert("Données importées avec succès !");
+            } else {
+               throw new Error("Format invalide");
+            }
+          }
         } catch (err) {
+          console.error("Erreur import:", err);
           alert("Erreur : Le fichier n'est pas un format de sauvegarde valide.");
+        } finally {
+           // Reset input value to allow re-importing the same file
+           e.target.value = '';
         }
       };
       reader.readAsText(file);
