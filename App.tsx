@@ -1,6 +1,8 @@
 
 import React, { useState, useCallback, useEffect } from 'react';
-import { FileDown, RotateCcw, Save, Upload, Edit3, Eye, CheckCircle2, FileSpreadsheet, FileText } from 'lucide-react';
+import { FileDown, RotateCcw, Save, Upload, Edit3, Eye, CheckCircle2, FileSpreadsheet, FileText, Download } from 'lucide-react';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 import { ReportData, INITIAL_DATA } from './types';
 import ReportForm from './components/ReportForm';
 import ReportPreview, { ADLogo } from './components/ReportPreview';
@@ -25,6 +27,48 @@ const App: React.FC = () => {
     setTimeout(() => {
       window.print();
     }, 100);
+  };
+
+  const handleExportPDF = async () => {
+    const pages = document.querySelectorAll('.a4-container');
+    if (pages.length === 0) {
+      alert('Erreur : Aucune page trouvée');
+      return;
+    }
+
+    try {
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      const margin = 10; // 1cm de marge
+      const targetWidth = 210 - (2 * margin); // 190mm
+      const targetHeight = 297 - (2 * margin); // 277mm
+
+      for (let i = 0; i < pages.length; i++) {
+        const page = pages[i] as HTMLElement;
+        
+        // Capture de la page individuelle
+        const canvas = await html2canvas(page, {
+          scale: 2,
+          useCORS: true,
+          logging: false,
+          backgroundColor: '#ffffff',
+        });
+
+        const imgData = canvas.toDataURL('image/jpeg', 0.8);
+        
+        if (i > 0) {
+          pdf.addPage();
+        }
+
+        // Ajout de l'image avec marges de 10mm
+        pdf.addImage(imgData, 'JPEG', margin, margin, targetWidth, targetHeight);
+      }
+
+      pdf.save(`Rapport_${data.nomDepartement || 'AD'}_${data.annee}.pdf`);
+      
+    } catch (error) {
+      console.error('Erreur lors de la génération du PDF:', error);
+      alert('Erreur lors de la génération du PDF. Veuillez réessayer.');
+    }
   };
 
   const handleExportJSON = () => {
@@ -157,8 +201,11 @@ const App: React.FC = () => {
             <button onClick={resetData} title="Réinitialiser" className="p-2.5 text-slate-400 hover:text-red-600 transition-all hover:bg-red-50 rounded-xl">
               <RotateCcw className="w-4 h-4" />
             </button>
+            <button onClick={handleExportPDF} title="Télécharger PDF directement" className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl text-xs font-black uppercase transition-all shadow-xl shadow-green-200 active:scale-95">
+              <Download className="w-4 h-4" /> Télécharger PDF
+            </button>
             <button onClick={handlePrint} className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl text-xs font-black uppercase transition-all shadow-xl shadow-blue-200 active:scale-95 ml-2">
-              <FileDown className="w-4 h-4" /> PDF
+              <FileDown className="w-4 h-4" /> Imprimer
             </button>
           </div>
         </div>
