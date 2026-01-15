@@ -1,0 +1,118 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Générateur de Rapport Trimestriel - Beraca</title>
+    <link rel="icon" type="image/x-icon" href="/Rapport-d-activit-/assets/favicon-DrKB3ysj.ico">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+    <style>
+        /* Styles de base pour la typographie du rapport */
+        .report-typography {
+            font-family: 'Merriweather', 'Cambria', 'Georgia', serif;
+            color: #1e293b; /* slate-800 */
+        }
+        
+        .report-typography h1, .report-typography h2, .report-typography h3, .report-typography h4 {
+            font-family: 'Roboto', 'Arial', sans-serif;
+        }
+
+        /* Conteneur A4 pour l'écran */
+        .a4-container {
+            width: 210mm;
+            min-height: 297mm; /* Permet de s'étendre si nécessaire, mais vise A4 */
+            padding: 10mm;
+            margin: 20px auto;
+            background: white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden; /* Garder le contenu dans la page */
+            box-sizing: border-box;
+        }
+
+        /* Styles spécifiques à l'impression */
+        @media print {
+            @page {
+                size: A4;
+                margin: 0;
+            }
+
+            body {
+                background: white !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+
+            .no-print {
+                display: none !important;
+            }
+
+            .a4-container {
+                width: 210mm !important;
+                height: 297mm !important; /* Force la hauteur exacte pour l'impression par page */
+                min-height: 297mm !important;
+                margin: 0 !important;
+                padding: 10mm !important;
+                box-shadow: none !important;
+                border: none !important;
+                page-break-after: always !important;
+                page-break-inside: avoid !important;
+                print-color-adjust: exact !important;
+                -webkit-print-color-adjust: exact !important;
+                overflow: hidden !important;
+            }
+
+            /* Réinitialisation douce pour l'impression sans tout casser */
+            h1, h2, h3, h4, h5, h6, p, div {
+                page-break-inside: avoid;
+            }
+
+            /* Masquer les placeholders à l'impression */
+            textarea::placeholder, input::placeholder {
+                color: transparent !important;
+            }
+        }
+
+        /* Tableaux */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed; /* Important pour respecter les largeurs */
+        }
+
+        th, td {
+            padding: 6px;
+            vertical-align: top;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        /* Champs de saisie transparents pour le rendu final */
+        input, textarea {
+            background: transparent;
+            border: none;
+            outline: none;
+            width: 100%;
+            font-family: inherit;
+            color: inherit;
+        }
+        
+        textarea {
+            resize: none;
+            overflow: hidden;
+        }
+
+        /* Motifs de fond */
+        .dot-pattern { background-image: radial-gradient(#cbd5e1 1px, transparent 1px); background-size: 15px 15px; }
+        .line-pattern { background-image: linear-gradient(0deg, #f1f5f9 1px, transparent 1px); background-size: 100% 25px; }
+    </style>
+  <script type="module" crossorigin src="/Rapport-d-activit-/assets/index-DSPDSwuU.js"></script>
+</head>
+<body class="bg-slate-50 font-sans text-slate-900">
+    <div id="root"></div>
+</body>
+</html>
